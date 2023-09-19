@@ -1,0 +1,9 @@
+INSERT INTO responsavel(cpf, endereco, nome, telefone)
+VALUES('00022233312', 'Rua IFMS', 'Victor', '998557744'),
+	('11122233312', 'Rua IFMS', 'Outro Victor', '998557744');
+
+INSERT INTO animal(doenca, idade, nome, peso, responsavel_id)
+VALUES('cancer', 12, 'Pipoca', 9.8, 1),
+	('cegueira', 8, 'Outra Pipoca', 9.8, 1),
+	('castracao', 3, 'Milho', 3.8, 2),
+	('castracao', 11, 'Outro Milho', 19.8, 2)
