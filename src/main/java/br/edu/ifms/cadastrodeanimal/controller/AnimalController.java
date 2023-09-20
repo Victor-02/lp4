@@ -1,6 +1,7 @@
 package br.edu.ifms.cadastrodeanimal.controller;
 
 import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
+import br.edu.ifms.cadastrodeanimal.exception.ResponsavelNotFoundException;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
 import br.edu.ifms.cadastrodeanimal.service.AnimalService;
 import br.edu.ifms.cadastrodeanimal.service.ResponsavelService;
@@ -56,7 +57,7 @@ public class AnimalController {
 
     @GetMapping("/responsavel-animal/{id}")
     public String getAnimaisPorResponsavel(@PathVariable Long id, Model model) {
-        model.addAttribute("animais", animalService.listAll());
-        return "/animais-responsavel";
+        model.addAttribute("animais", animalService.findByResponsavel(id));
+        return "listarAnimais";
     }
 }

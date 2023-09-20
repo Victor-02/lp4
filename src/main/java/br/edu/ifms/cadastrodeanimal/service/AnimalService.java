@@ -1,12 +1,14 @@
 package br.edu.ifms.cadastrodeanimal.service;
 
 import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
+import br.edu.ifms.cadastrodeanimal.exception.ResponsavelNotFoundException;
 import br.edu.ifms.cadastrodeanimal.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 @Service
 public class AnimalService {
@@ -25,6 +27,10 @@ public class AnimalService {
         Animal animalEncontrado = animalRepository.findByNome(name)
                 .orElseThrow(() -> new AnimalNotFoundException(name));
         return animalEncontrado;
+    }
+
+    public List<Animal> findByResponsavel(Long id) {
+        return new ArrayList<Animal>(animalRepository.findAllByResponsavelId(id));
     }
 
     public List<Animal> listAll() {

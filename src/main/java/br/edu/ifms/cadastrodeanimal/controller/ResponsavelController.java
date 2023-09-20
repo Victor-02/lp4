@@ -33,7 +33,7 @@ public class ResponsavelController {
     public String listarResponsaveis(Model model) {
         List<Responsavel> responsaveis = responsavelService.listAll();
         model.addAttribute("responsaveis", responsaveis);
-        return "/listar-responsaveis";
+        return "listarResponsaveis";
     }
 
     @DeleteMapping("/deletar-responsavel/{id}")
