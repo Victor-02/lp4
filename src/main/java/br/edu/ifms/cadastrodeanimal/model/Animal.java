@@ -1,6 +1,5 @@
 package br.edu.ifms.cadastrodeanimal.model;
 
-import br.edu.ifms.cadastrodeanimal.dto.ResponsavelDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,13 @@
-INSERT INTO responsavel(cpf, endereco, nome, telefone)
-VALUES('00022233312', 'Rua IFMS', 'Victor', '998557744'),
-	('11122233312', 'Rua IFMS', 'Outro Victor', '998557744');
+INSERT INTO Responsavel (nome, cpf, endereco, telefone)
+VALUES
+    ('João da Silva', '123.456.789-00', 'Rua A, 123', '(11) 1234-5678'),
+    ('Maria Souza', '987.654.321-00', 'Avenida B, 456', '(21) 9876-5432'),
+    ('Carlos Santos', '111.222.333-44', 'Rua C, 789', '(31) 5555-9999');
 
-INSERT INTO animal(doenca, idade, nome, peso, responsavel_id)
-VALUES('cancer', 12, 'Pipoca', 9.8, 1),
-	('cegueira', 8, 'Outra Pipoca', 9.8, 1),
-	('castracao', 3, 'Milho', 3.8, 2),
-	('castracao', 11, 'Outro Milho', 19.8, 2)
+INSERT INTO Animal (nome, idade, doenca, peso, responsavel_id)
+VALUES
+    ('Rex', 3, 'Nenhuma', 10.5, 1),
+    ('Bolinha', 2, 'Gripe canina', 5.2, 2),
+    ('Mia', 5, 'Nenhuma', 7.0, 1),
+    ('Frajola', 4, 'Rinite felina', 4.5, 3),
+    ('Luna', 1, 'Nenhuma', 2.8, 2);

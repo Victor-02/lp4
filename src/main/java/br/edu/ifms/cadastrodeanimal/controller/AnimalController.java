@@ -1,11 +1,9 @@
 package br.edu.ifms.cadastrodeanimal.controller;
 
-import br.edu.ifms.cadastrodeanimal.dto.AnimalDTO;
 import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
 import br.edu.ifms.cadastrodeanimal.service.AnimalService;
 import br.edu.ifms.cadastrodeanimal.service.ResponsavelService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,35 +23,40 @@ public class AnimalController {
     }
 
     @GetMapping("/novo-animal")
-    public String home(Model model) {
+    public String novoAnimal(Model model) {
         model.addAttribute("animal", new Animal());
         model.addAttribute("responsaveis", responsavelService.listAll());
         return "novoAnimal";
     }
 
     @PostMapping("/criar-animal")
-    public String cadastrar(@Valid @ModelAttribute("animal") AnimalDTO animal) {
+    public String criarAnimal(@Valid @ModelAttribute("animal") Animal animal) {
         System.out.println(animal);
         animalService.createAnimal(animal);
-        return "redirect:/novo-animal";
+        return "redirect:/listar-responsaveis";
     }
 
-    @GetMapping("/{name}")
-    public AnimalDTO findByName(@PathVariable String name) throws AnimalNotFoundException {
-        return animalService.findByName(name);
+    @GetMapping("/buscar-animal/{name}")
+    public Animal buscarPorNome(@PathVariable String nome) throws AnimalNotFoundException {
+        return animalService.findByName(nome);
     }
 
-    @RequestMapping("/listar-animais")
+    @GetMapping("/listar-animais")
     public String listarAnimais(Model model) {
-        List<AnimalDTO> animais = animalService.listAll();
+        List<Animal> animais = animalService.listAll();
         model.addAttribute("animais", animais);
         return "listarAnimais";
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) throws AnimalNotFoundException {
+    @DeleteMapping("/excluir-animal/{id}")
+    public String excluirPorId(@PathVariable Long id) throws AnimalNotFoundException {
         animalService.deleteById(id);
-        //redirect:to = "/listar";
+        return "redirect:/listar-responsaveis";
+    }
+
+    @GetMapping("/responsavel-animal/{id}")
+    public String getAnimaisPorResponsavel(@PathVariable Long id, Model model) {
+        model.addAttribute("animais", animalService.listAll());
+        return "/animais-responsavel";
     }
 }

@@ -3,13 +3,11 @@ package br.edu.ifms.cadastrodeanimal.service;
 import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
 import br.edu.ifms.cadastrodeanimal.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
-import br.edu.ifms.cadastrodeanimal.mapper.AnimalMapper;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
 
-import br.edu.ifms.cadastrodeanimal.dto.AnimalDTO;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 @Service
 public class AnimalService {
     private final AnimalRepository animalRepository;
@@ -18,25 +16,19 @@ public class AnimalService {
         this.animalRepository = animalRepository;
     }
 
-    private final AnimalMapper animalMapper = AnimalMapper.INSTANCE;
-
-    public AnimalDTO createAnimal(AnimalDTO animalDTO) {
-        Animal animal = animalMapper.toModel(animalDTO);
-        Animal savedAnimal = animalRepository.save(animal);
-        return animalMapper.toDTO(savedAnimal);
+    public Animal createAnimal(Animal animal) {
+        Animal animalSalvo = animalRepository.save(animal);
+        return animalSalvo;
     }
 
-    public AnimalDTO findByName(String name) throws AnimalNotFoundException {
-        Animal foundAnimal = animalRepository.findByNome(name)
+    public Animal findByName(String name) throws AnimalNotFoundException {
+        Animal animalEncontrado = animalRepository.findByNome(name)
                 .orElseThrow(() -> new AnimalNotFoundException(name));
-        return animalMapper.toDTO(foundAnimal);
+        return animalEncontrado;
     }
 
-    public List<AnimalDTO> listAll() {
-        return animalRepository.findAll()
-                .stream()
-                .map(animalMapper::toDTO)
-                .collect(Collectors.toList());
+    public List<Animal> listAll() {
+        return new ArrayList<>(animalRepository.findAll());
     }
 
     public void deleteById(Long id) throws AnimalNotFoundException {
