@@ -40,6 +40,7 @@
                 <th>Endereco</th>
                 <th>CPF</th>
                 <th>Telefone</th>
+                <th>Animais</th>
             </tr>
             </thead>
             <tbody>
@@ -48,6 +49,7 @@
                 <td><span th:text="${responsavel.cpf}"></span></td>
                 <td><span th:text="${responsavel.endereco}"></span></td>
                 <td><span th:text="${responsavel.telefone}"></span></td>
+                <td><span><a th:href="@{/responsavel-animal/{id}(id=${responsavel.id})}">Animais</a></span></td>
                 <td><a class="fa-regular fa-trash-can icon-dark btn-delete"
                        th:href="@{/deletar-responsavel/{id}(id=${responsavel.id})}"
                        th:data-confirm-delete="|Tem certeza disso?|"
