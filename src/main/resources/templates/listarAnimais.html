@@ -47,11 +47,11 @@
                 <td><span th:text="${animal.idade}"></span></td>
                 <td><span th:text="${animal.doenca}"></span></td>
                 <td><span th:text="${animal.peso}"></span></td>
+                <td><span th:text="${animal.responsavel}"></span></td>
                 <td><a class="fa-regular fa-trash-can icon-dark btn-delete"
                        th:href="@{/deletar-animal/{id}(id=${animal.id})}"
                        th:data-confirm-delete="|Tem certeza disso?|"
-                       th:onclick="if (!confirm(this.getAttribute('data-confirm-delete')))
-										      return false">
+                       onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                 </a>
                     &nbsp;
                     <a class="fa-regular fa-pen-to-square icon-dark"
@@ -61,46 +61,6 @@
             </tr>
             </tbody>
         </table>
-
-        <div class="col">
-
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th th:text="Nome"></th>
-                    <th th:text="Idade"></th>
-                    <th th:text="Doença"></th>
-                    <th th:text="Peso"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${animais.empty}">
-                    <td colspan="2" th:text="Nenhum animal cadastrado"></td>
-                </tr>
-                <tr th:each="animal : ${animais}">
-                    <td><span th:text="${animal.nome}"></span></td>
-                    <td><span th:text="${animal.idade}"></span></td>
-                    <td><span th:text="${animal.doenca}"> </span></td>
-                    <td><span th:text="${animal.peso}"> </span></td>
-                    <td><span th:text="${animal.responsavel}"> </span></td>
-                    <td>
-                        <a class="btn btn-outline-danger btn-sm"
-                           th:href="@{/excluir-animal/{id}(id=${animal.id})}"
-                           th:data-confirm-delete="|Certeza que deseja apagar este animal?|"
-                           onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
-                           th:text="Excluído com sucesso">
-                        </a>
-                    </td>
-                    <td>
-                        <a class="btn btn-outline-primary btn-sm"
-                           th:href="@{/usuario/editar/{id}(id=${usuario.id})}"
-                           th:text="#{admin.editar.papel.usuario.edit}">
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
 
     </div>
 </div>

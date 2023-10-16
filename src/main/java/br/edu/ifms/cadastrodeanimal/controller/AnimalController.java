@@ -60,7 +60,6 @@ public class AnimalController {
     public String getAnimaisPorResponsavel(@PathVariable Long id, Model model) {
         model.addAttribute("animais", animalService.findByResponsavel(id));
         return "listarAnimais";
-        return "redirect:/listar-animais";
     }
 
     @GetMapping("/editar/{id}")
