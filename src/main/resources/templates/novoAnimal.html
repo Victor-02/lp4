@@ -11,8 +11,49 @@
 </head>
 <body>
 <div class="container">
-    <h1>Cadastro de animal</h1>
-    <form method="post" th:action="@{/criar-animal}" th:object="${animal}">
+    <h1 th:if="${!animal}">Cadastro de animal</h1>
+    <form method="post" th:action="@{/criar-animal}" th:object="${animal}" th:if="${!animal}">
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control" th:field="*{nome}" placeholder="Nome do animal">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="form-label">Idade</label>
+                <input type="number" class="form-control" th:field="*{idade}" placeholder="Idade do animal">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="col-sm-1 col-form-label">Doença</label>
+                <input class="form-control" type="text" th:field="*{doenca}" placeholder="Doença do animal">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="form-label">Peso</label>
+                <input type="number" class="form-control" th:field="*{peso}" placeholder="Peso do animal">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="form-label">Responsavel</label>
+                <select class="form-select" aria-label="Default select example" th:field="*{responsavel}">
+                    <option th:each="responsavel : ${responsaveis}" th:value="${responsavel}"
+                            th:text="${responsavel.getNome()}"></option>
+                    >
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+        <a href="/listar-animais" class="btn btn-secondary mt-3">Voltar</a>
+    </form>
+
+    <h1 th:if="${animal}">Editar animal</h1>
+    <form method="post" th:action="@{/editar/{id}(id=${animal.id})}" th:object="${animal}" th:if="${!animal}">
         <div class="row mb-3">
             <div class="col-sm-5">
                 <label class="form-label">Nome</label>

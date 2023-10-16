@@ -5,10 +5,11 @@ import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
 import br.edu.ifms.cadastrodeanimal.service.AnimalService;
 import br.edu.ifms.cadastrodeanimal.service.ResponsavelService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,7 +34,6 @@ public class AnimalController {
 
     @PostMapping("/criar-animal")
     public String cadastrar(@Valid @ModelAttribute("animal") AnimalDTO animal) {
-        System.out.println(animal);
         animalService.createAnimal(animal);
         return "redirect:/novo-animal";
     }
@@ -50,10 +50,35 @@ public class AnimalController {
         return "listarAnimais";
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) throws AnimalNotFoundException {
+    @DeleteMapping("/excluir-animal/{id}")
+    public String deleteById(@PathVariable Long id) throws AnimalNotFoundException {
         animalService.deleteById(id);
-        //redirect:to = "/listar";
+        return "redirect:/listar-animais";
     }
+
+    @GetMapping("/editar/{id}")
+    public String editarForm(@PathVariable("id") long id, RedirectAttributes attributes,
+                             Model model) {
+        try {
+            Animal animal = animalService.findById(id);
+            model.addAttribute("animal", animal);
+            return "novoAnimal";
+        } catch (AnimalNotFoundException e) {
+            attributes.addFlashAttribute("mensagemErro", e.getMessage());
+        }
+        return "redirect:/listar-animais";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarAnimal(@PathVariable("id") long id,
+                               @ModelAttribute("animal") @Valid Animal animal,
+                               BindingResult erros) throws AnimalNotFoundException {
+        if (erros.hasErrors()) {
+            animal.setId(id);
+            return "/alterar-animal";
+        }
+        animalService.editarAnimal(animal);
+        return "redirect:/listar-animais";
+    }
+
 }

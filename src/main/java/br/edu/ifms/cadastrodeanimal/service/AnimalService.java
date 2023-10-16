@@ -1,24 +1,23 @@
 package br.edu.ifms.cadastrodeanimal.service;
 
+import br.edu.ifms.cadastrodeanimal.dto.AnimalDTO;
 import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
-import br.edu.ifms.cadastrodeanimal.repository.AnimalRepository;
-import org.springframework.stereotype.Service;
 import br.edu.ifms.cadastrodeanimal.mapper.AnimalMapper;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
-
-import br.edu.ifms.cadastrodeanimal.dto.AnimalDTO;
+import br.edu.ifms.cadastrodeanimal.repository.AnimalRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class AnimalService {
     private final AnimalRepository animalRepository;
+    private final AnimalMapper animalMapper = AnimalMapper.INSTANCE;
 
     public AnimalService(AnimalRepository animalRepository) {
         this.animalRepository = animalRepository;
     }
-
-    private final AnimalMapper animalMapper = AnimalMapper.INSTANCE;
 
     public AnimalDTO createAnimal(AnimalDTO animalDTO) {
         Animal animal = animalMapper.toModel(animalDTO);
@@ -47,5 +46,14 @@ public class AnimalService {
     private Animal verifyIfExists(Long id) throws AnimalNotFoundException {
         return animalRepository.findById(id)
                 .orElseThrow(() -> new AnimalNotFoundException(id));
+    }
+
+    public Animal findById(Long id) throws AnimalNotFoundException {
+        return animalRepository.findById(id)
+                .orElseThrow(() -> new AnimalNotFoundException(id));
+    }
+
+    public void editarAnimal(Animal animal) throws AnimalNotFoundException {
+        animalRepository.save(animal);
     }
 }
