@@ -3,6 +3,7 @@ package br.edu.ifms.cadastrodeanimal.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"responsavel", "peso", "doenca", "idade", "nome"})
 public class Animal {
 
     @Id

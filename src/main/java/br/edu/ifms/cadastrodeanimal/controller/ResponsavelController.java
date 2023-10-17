@@ -1,13 +1,14 @@
 package br.edu.ifms.cadastrodeanimal.controller;
 
-import br.edu.ifms.cadastrodeanimal.exception.ResponsavelNotFoundException;
 import br.edu.ifms.cadastrodeanimal.model.Responsavel;
 import br.edu.ifms.cadastrodeanimal.service.ResponsavelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 public class ResponsavelController {
@@ -19,26 +20,14 @@ public class ResponsavelController {
     }
 
     @GetMapping("/novo-responsavel")
-    public String home(Model model) {
+    public String novoAnimal(Model model) {
         model.addAttribute("responsavel", new Responsavel());
         return "novoResponsavel";
     }
 
     @PostMapping("/criar-responsavel")
-    public void cadastrar(Responsavel responsavel) {
-        System.out.println("Cadastrando..." + responsavel.getNome());
-    }
-
-    @RequestMapping("/listar-responsaveis")
-    public String listarResponsaveis(Model model) {
-        List<Responsavel> responsaveis = responsavelService.listAll();
-        model.addAttribute("responsaveis", responsaveis);
-        return "listarResponsaveis";
-    }
-
-    @DeleteMapping("/deletar-responsavel/{id}")
-    public String DeletarResponsavel(@PathVariable Long id) throws ResponsavelNotFoundException {
-        responsavelService.deleteById(id);
-        return "redirect:/listar-responsavel";
+    public String criarResponsavel(@Valid @ModelAttribute("responsavel") Responsavel responsavel) {
+        responsavelService.createResponsavel(responsavel);
+        return "redirect:/novo-responsavel";
     }
 }

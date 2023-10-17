@@ -11,8 +11,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>Cadastro de animal</h1>
-    <form method="post" th:action="@{/criar-animal}" th:object="${animal}">
+
+    <h1>Editar animal</h1>
+    <form method="post" th:action="@{/editar/{id}(id=${animal.id})}" th:object="${animal}">
         <div class="row mb-3">
             <div class="col-sm-5">
                 <label class="form-label">Nome</label>
@@ -35,6 +36,17 @@
             <div class="col-sm-5">
                 <label class="form-label">Peso</label>
                 <input type="number" class="form-control" th:field="*{peso}" placeholder="Peso do animal">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="form-label">Responsavel</label>
+                <select class="form-select" aria-label="Selecione o responsável" th:field="*{responsavel}">
+                    <option th:each="responsavel : ${responsaveis}" th:value="${responsavel}"
+                            th:text="${responsavel.nome}"
+                            th:selected="${responsavel.nome == animal.responsavel.nome}"></option>
+                </select>
+
             </div>
         </div>
 

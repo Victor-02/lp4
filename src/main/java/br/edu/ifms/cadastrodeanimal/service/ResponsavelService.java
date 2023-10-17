@@ -21,7 +21,7 @@ public class ResponsavelService {
         return savedResponsavel;
     }
 
-    public List<Responsavel> listAll() {
+    public List<Responsavel> listaResponsaveis() {
         List<Responsavel> responsavelList = new ArrayList<>();
         for (Responsavel responsavel : responsavelRepository.findAll()
         ) {
