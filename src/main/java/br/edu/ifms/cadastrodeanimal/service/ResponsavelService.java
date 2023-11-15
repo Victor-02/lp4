@@ -43,4 +43,6 @@ public class ResponsavelService {
         return responsavelRepository.findById(id)
                 .orElseThrow(() -> new ResponsavelNotFoundException(id));
     }
+
+    public Responsavel buscaResponsavelPorId(Long id){return null;}
 }

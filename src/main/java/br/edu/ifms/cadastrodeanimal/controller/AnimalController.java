@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,7 @@ public class AnimalController {
     }
 
     @PostMapping("/criar-animal")
-    public String criarAnimal(@Valid @ModelAttribute("animal") Animal animal) {
+    public String criarAnimal(@Valid @ModelAttribute("animal") Animal animal, @PathVariable Long id) {
         animalService.createAnimal(animal);
         return "redirect:/novo-animal";
     }
@@ -90,5 +91,13 @@ public class AnimalController {
         animalService.editarAnimal(animal);
         return "redirect:/listar-animais";
     }
-
+    @GetMapping("/novo-animal/{id}")
+    public String novoAnimal(Model model, @PathVariable Long id) {
+        Responsavel responsavel = responsavelService.buscaResponsavelPorId(id);
+        Animal animal = new Animal();
+        animal.setResponsavel(responsavel);
+        model.addAttribute("animal", animal);
+        model.addAttribute("id", id);
+        return "novoAnimal";
+    }
 }

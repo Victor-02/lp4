@@ -30,9 +30,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <span th:text="${mensagemErro}"></span>
         </div>
-        <tr th:if="${responsaveis.empty}">
-            <td colspan="3">Não existem responsaveis.</td>
-        </tr>
+        <div th:if="${responsaveis.empty}">
+            <h3>Não existem responsaveis.</h3>
+        </div>
         <table th:if="${!responsaveis.empty}" class="table table-striped">
             <thead>
             <tr>
@@ -49,18 +49,16 @@
                 <td><span th:text="${responsavel.cpf}"></span></td>
                 <td><span th:text="${responsavel.endereco}"></span></td>
                 <td><span th:text="${responsavel.telefone}"></span></td>
-                <td><span><a th:href="@{/responsavel-animal/{id}(id=${responsavel.id})}">Animais</a></span></td>
-                <td><a class="fa-regular fa-trash-can icon-dark btn-delete"
-                       th:href="@{/deletar-responsavel/{id}(id=${responsavel.id})}"
-                       th:data-confirm-delete="|Tem certeza disso?|"
-                       th:onclick="if (!confirm(this.getAttribute('data-confirm-delete')))
-										      return false">
-                </a>
-                    &nbsp;
-                    <a class="fa-regular fa-pen-to-square icon-dark"
-                       th:href="@{/editar-responsavel/{id}(id=${responsavel.id})}"></a>
+                <td><span th:text="${responsavel.animais}" th:if="${!responsavel.animais.isEmpty()}"></span>
                 </td>
+                <td><span><a th:href="@{/responsavel-animal/{id}(id=${responsavel.id})}">Animais</a></span></td>
 
+                <td><a th:text="Adicionar Animal" th:if="${responsavel.animais.isEmpty()}"
+                       th:href="@{/novo-animal/{id}(id=${responsavel.id})}"></a></td>
+                <td>
+                    <a th:text="Apagar" class="btn btn-outline-danger"
+                       th:href="@{/deletar-responsavel/{id}(id=${responsavel.id})}"></a>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -11,7 +11,11 @@
 </head>
 <body>
 <div class="container">
+    <a href="/listar-animais" class="btn btn-primary mt-3">Lista</a>
     <h1>Cadastro de animal</h1>
+    <div class="alert alert-danger" role="alert" th:if="${erro}">
+        <span th:text="${erro}"></span>
+    </div>
     <form method="post" th:action="@{/criar-animal}" th:object="${animal}">
         <div class="row mb-3">
             <div class="col-sm-5">
@@ -39,7 +43,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Salvar</button>
-        <a href="/listar-animais" class="btn btn-secondary mt-3">Voltar</a>
     </form>
 
 </div>

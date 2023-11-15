@@ -1,25 +1,34 @@
 package br.edu.ifms.cadastrodeanimal.service;
 
 import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
+import br.edu.ifms.cadastrodeanimal.model.Responsavel;
 import br.edu.ifms.cadastrodeanimal.repository.AnimalRepository;
+import br.edu.ifms.cadastrodeanimal.repository.ResponsavelRepository;
 import org.springframework.stereotype.Service;
 import br.edu.ifms.cadastrodeanimal.model.Animal;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnimalService {
     private final AnimalRepository animalRepository;
+    private final ResponsavelRepository responsavelRepository;
 
-    public AnimalService(AnimalRepository animalRepository) {
+    public AnimalService(AnimalRepository animalRepository, ResponsavelRepository responsavelRepository) {
         this.animalRepository = animalRepository;
+        this.responsavelRepository = responsavelRepository;
     }
 
-    public Animal createAnimal(Animal animal) {
+    public void createAnimal(Animal animal) {
         Animal animalSalvo = animalRepository.save(animal);
-        return animalSalvo;
+        Optional<Responsavel> responsavel = responsavelRepository.findById(animal.getResponsavel().getId());
+        List<Animal> animais = responsavel.get().getAnimais();
+        animais.add(animal);
+        responsavel.get().setAnimais(animais);
+        responsavelRepository.save(responsavel.get());
     }
 
     public Animal findByName(String name) throws AnimalNotFoundException {
