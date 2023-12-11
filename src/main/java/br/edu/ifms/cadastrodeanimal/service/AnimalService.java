@@ -1,10 +1,8 @@
 package br.edu.ifms.cadastrodeanimal.service;
 
-import br.edu.ifms.cadastrodeanimal.exception.AnimalNotFoundException;
+import br.edu.ifms.cadastrodeanimal.model.Animal;
 import br.edu.ifms.cadastrodeanimal.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
-import br.edu.ifms.cadastrodeanimal.model.Animal;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,36 +20,20 @@ public class AnimalService {
         return animalSalvo;
     }
 
-    public Animal findByName(String name) throws AnimalNotFoundException {
-        Animal animalEncontrado = animalRepository.findByNome(name)
-                .orElseThrow(() -> new AnimalNotFoundException(name));
-        return animalEncontrado;
-    }
-
-    public List<Animal> findByResponsavel(Long id) {
-        return new ArrayList<Animal>(animalRepository.findAllByResponsavelId(id));
-    }
-
     public List<Animal> listAll() {
         return new ArrayList<>(animalRepository.findAll());
     }
 
-    public void deleteById(Long id) throws AnimalNotFoundException {
+    public void deleteById(Long id) {
         verifyIfExists(id);
         animalRepository.deleteById(id);
     }
 
-    private Animal verifyIfExists(Long id) throws AnimalNotFoundException {
-        return animalRepository.findById(id)
-                .orElseThrow(() -> new AnimalNotFoundException(id));
+    private Animal verifyIfExists(Long id) {
+        return animalRepository.findById(id).orElseThrow();
     }
 
-    public Animal findById(Long id) throws AnimalNotFoundException {
-        return animalRepository.findById(id)
-                .orElseThrow(() -> new AnimalNotFoundException(id));
-    }
-
-    public void editarAnimal(Animal animal) throws AnimalNotFoundException {
-        animalRepository.save(animal);
+    public Animal findById(Long id) {
+        return animalRepository.findById(id).orElseThrow();
     }
 }

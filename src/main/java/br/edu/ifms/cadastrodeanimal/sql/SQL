@@ -11,3 +11,11 @@ VALUES
     ('Mia', 5, 'Nenhuma', 7.0, 1),
     ('Frajola', 4, 'Rinite felina', 4.5, 3),
     ('Luna', 1, 'Nenhuma', 2.8, 2);
+
+INSERT INTO Animal (nome, idade, doenca, peso)
+VALUES
+    ('Nina', 3, 'Nenhuma', 10.5),
+    ('Doris', 2, 'Gripe canina', 5.2),
+    ('Misha', 5, 'Nenhuma', 7.0),
+    ('Rato', 4, 'Rinite felina', 4.5),
+    ('Luna', 1, 'Nenhuma', 2.8);

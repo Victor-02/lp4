@@ -1,17 +1,8 @@
 package br.edu.ifms.cadastrodeanimal.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import javax.persistence.*;
 
-@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = {"responsavel", "peso", "doenca", "idade", "nome"})
 public class Animal {
 
     @Id
@@ -32,5 +23,64 @@ public class Animal {
 
     @ManyToOne
     private Responsavel responsavel;
+
+    public Animal(Long id, String nome, Integer idade, String doenca, Double peso) {
+        this.id = id;
+        this.nome = nome;
+        this.idade = idade;
+        this.doenca = doenca;
+        this.peso = peso;
+    }
+
+    public Animal() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public String getDoenca() {
+        return doenca;
+    }
+
+    public void setDoenca(String doenca) {
+        this.doenca = doenca;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Responsavel getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Responsavel responsavel) {
+        this.responsavel = responsavel;
+    }
 }
 
