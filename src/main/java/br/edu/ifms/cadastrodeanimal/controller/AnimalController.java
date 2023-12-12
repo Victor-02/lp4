@@ -25,7 +25,7 @@ public class AnimalController {
         this.responsavelService = responsavelService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/novo-animal")
     public String novoAnimal(Model model) {
         model.addAttribute("responsaveis", responsavelService.listAll());
         model.addAttribute("animal", new Animal());

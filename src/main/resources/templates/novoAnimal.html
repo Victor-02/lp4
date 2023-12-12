@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="/listar-animais" class="btn btn-primary mt-3">Lista</a>
+    <a href="/" class="btn btn-primary mt-3">Voltar</a>
     <h1>Cadastro de animal</h1>
     <div class="alert alert-danger" role="alert" th:if="${erro}">
         <span th:text="${erro}"></span>
@@ -46,7 +46,7 @@
                 <label class="form-label">Responsável</label>
                 <select class="form-select" th:field="*{responsavel}">
                     <option th:each="responsavel : ${responsaveis}"
-                            th:value="${responsavel}"
+                            th:value="${responsavel.id}"
                             th:text="${responsavel.nome}"></option>
                 </select>
             </div>

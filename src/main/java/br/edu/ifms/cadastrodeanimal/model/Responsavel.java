@@ -83,4 +83,16 @@ public class Responsavel {
     public void setAnimais(List<Animal> animais) {
         this.animais = animais;
     }
+
+    @Override
+    public String toString() {
+        return "Responsavel{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", animais=" + animais +
+                '}';
+    }
 }

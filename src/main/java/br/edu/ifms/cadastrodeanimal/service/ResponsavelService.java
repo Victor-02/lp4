@@ -4,6 +4,7 @@ import br.edu.ifms.cadastrodeanimal.model.Responsavel;
 import br.edu.ifms.cadastrodeanimal.repository.ResponsavelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +21,7 @@ public class ResponsavelService {
     }
 
     public List<Responsavel> listAll() {
+        System.out.println(responsavelRepository.findAll());
         return responsavelRepository.findAll();
     }
 }

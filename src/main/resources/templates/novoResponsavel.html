@@ -12,6 +12,9 @@
 <body>
 <div class="container">
     <h1>Cadastro de responsavel</h1>
+    <a href="/listar-animais" class="btn btn-primary mt-3">Listar</a>
+    <a href="/novo-animal" class="btn btn-primary mt-3">Novo Animal</a>
+
     <div class="alert alert-danger" role="alert" th:if="${erro}">
         <span th:text="${erro}"></span>
     </div>
@@ -42,7 +45,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Salvar</button>
-        <a href="/listar-animais" class="btn btn-secondary mt-3">Voltar</a>
     </form>
 
 </div>

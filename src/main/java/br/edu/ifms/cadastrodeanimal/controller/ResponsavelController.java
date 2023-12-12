@@ -20,33 +20,32 @@ import java.util.List;
 public class ResponsavelController {
 
     private final ResponsavelService responsavelService;
-    private final AnimalService animalService;
 
-    public ResponsavelController(ResponsavelService responsavelService, AnimalService animalService) {
+    public ResponsavelController(ResponsavelService responsavelService) {
         this.responsavelService = responsavelService;
-        this.animalService = animalService;
     }
 
-    @GetMapping("/novo-responsavel/{id}")
-    public String novoAnimal(Model model, @PathVariable Long id) {
+    @GetMapping("/")
+    public String novoAnimal(Model model) {
         Responsavel responsavel = new Responsavel();
-        List<Animal> animais = new ArrayList<>();
-        Animal animal = animalService.findById(id);
-        animal.setResponsavel(responsavel);
-        animais.add(animal);
-        responsavel.setAnimais(animais);
         model.addAttribute("responsavel", responsavel);
-        model.addAttribute("id", id);
         return "novoResponsavel";
     }
 
-    @PostMapping("/criar-responsavel/{id}")
-    public String criarResponsavel(@Valid @ModelAttribute("responsavel") Responsavel responsavel, @PathVariable Long id, RedirectAttributes attributes) {
+    @PostMapping("/criar-responsavel}")
+    public String criarResponsavel(@Valid @ModelAttribute("responsavel") Responsavel responsavel, RedirectAttributes attributes) {
         if (responsavel.getNome().isEmpty() || responsavel.getTelefone().isEmpty() || responsavel.getCpf().isEmpty() || responsavel.getEndereco().isEmpty()) {
             attributes.addFlashAttribute("erro", "Preencha todos os campos!");
-            return "redirect:/novo-responsavel/" + id;
+            return "redirect:/novo-responsavel/";
         }
         responsavelService.createResponsavel(responsavel);
-        return "redirect:/listar-animais";
+        return "redirect:/listar-responsaveis";
+    }
+
+    @GetMapping("/listar-responsaveis")
+    public String listarResponsaveis(Model model) {
+        List<Responsavel> responsaveis = responsavelService.listAll();
+        model.addAttribute("responsaveis", responsaveis);
+        return "listarResponsaveis";
     }
 }
