@@ -18,11 +18,9 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <a th:href="@{/}" class="btn btn-primary">Novo Animal</a>
-        </div>
-
-        <div class="col">
-            <a th:href="@{/}" class="btn btn-primary">Voltar</a>
+            <a href="/novo-animal" class="btn btn-primary m-3">Novo Animal</a>
+            <a href="/listar-responsaveis" class="btn btn-secondary m-3">Listar Responsaveis</a>
+            <a th:href="@{/}" class="btn btn-primary m-3">Voltar</a>
         </div>
     </div>
 
@@ -38,6 +36,7 @@
                 <th>Doença</th>
                 <th>Peso</th>
                 <th>Responsável</th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -51,9 +50,12 @@
                 <td><a th:text="Responsável" th:if="${animal.responsavel == null}"
                        th:href="@{/novo-responsavel/{id}(id=${animal.id})}"></a></td>
                 <td>
+                    <a th:text="Editar" class="btn btn-outline-success"
+                       th:href="@{/editar-animal/{id}(id=${animal.id})}"></a>
+                </td>
+                <td>
                     <a th:text="Apagar" class="btn btn-outline-danger"
                        th:href="@{/excluir-animal/{id}(id=${animal.id})}"></a>
-
                 </td>
 
             </tr>

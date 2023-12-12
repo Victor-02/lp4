@@ -32,7 +32,7 @@ public class ResponsavelController {
         return "novoResponsavel";
     }
 
-    @PostMapping("/criar-responsavel}")
+    @PostMapping("/criar-responsavel")
     public String criarResponsavel(@Valid @ModelAttribute("responsavel") Responsavel responsavel, RedirectAttributes attributes) {
         if (responsavel.getNome().isEmpty() || responsavel.getTelefone().isEmpty() || responsavel.getCpf().isEmpty() || responsavel.getEndereco().isEmpty()) {
             attributes.addFlashAttribute("erro", "Preencha todos os campos!");

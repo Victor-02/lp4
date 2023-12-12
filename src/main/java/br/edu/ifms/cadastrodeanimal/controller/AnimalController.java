@@ -5,10 +5,7 @@ import br.edu.ifms.cadastrodeanimal.service.AnimalService;
 import br.edu.ifms.cadastrodeanimal.service.ResponsavelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -52,6 +49,24 @@ public class AnimalController {
     @GetMapping("/excluir-animal/{id}")
     public String deleteById(@PathVariable Long id) {
         animalService.deleteById(id);
+        return "redirect:/listar-animais";
+    }
+
+    @GetMapping("/editar-animal/{id}")
+    public String editarAnimal(@PathVariable Long id, Model model) {
+        Animal animal = animalService.verifyIfExists(id);
+        model.addAttribute("responsaveis", responsavelService.listAll());
+        model.addAttribute("animal", animal);
+        return "editaAnimal";
+    }
+
+    @PostMapping("/edita-animal/{id}")
+    public String editarAnimal(@PathVariable Long id, @Valid @ModelAttribute("animal") Animal animal, RedirectAttributes attributes) {
+        if (animal.getPeso() == null || animal.getIdade() == null || animal.getNome() == null || animal.getDoenca() == null || animal.getResponsavel() == null) {
+            attributes.addFlashAttribute("erro", "Preencha todos os campos!");
+            return "redirect:/editar-animal/" + id;
+        }
+        animalService.updateAnimal(animal);
         return "redirect:/listar-animais";
     }
 

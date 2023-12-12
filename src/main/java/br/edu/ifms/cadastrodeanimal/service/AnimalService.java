@@ -29,11 +29,12 @@ public class AnimalService {
         animalRepository.deleteById(id);
     }
 
-    private Animal verifyIfExists(Long id) {
+    public Animal verifyIfExists(Long id) {
         return animalRepository.findById(id).orElseThrow();
     }
 
-    public Animal findById(Long id) {
-        return animalRepository.findById(id).orElseThrow();
+    public void updateAnimal(Animal animal) {
+        verifyIfExists(animal.getId());
+        animalRepository.save(animal);
     }
 }
